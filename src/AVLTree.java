@@ -81,7 +81,7 @@ public class AVLTree {
             root = insert(root, key);
             return true;
         } catch (NodeAlreadyExists nodeAlreadyExists) {
-            nodeAlreadyExists.toString();
+            System.out.println(nodeAlreadyExists.getMessage() + key);
             return false;
         }
     }
@@ -89,8 +89,12 @@ public class AVLTree {
     // Insertion of a new Node to the AVL Tree
     public Node insert(Node n, int key) throws NodeAlreadyExists{
 
-            if (n == null)
-                return (new Node(key, null)); //TODO: Determine what type of object to keep
+        if (n == null)
+            return (new Node(key, null)); //TODO: Determine what type of object to keep
+
+        else {
+            if (n.getKey() == key)
+                throw new NodeAlreadyExists();
 
             // Insertion
             if (key < n.getKey()) {
@@ -125,6 +129,7 @@ public class AVLTree {
                 n.setRight(rightRotate(n.getRight()));
                 return leftRotate(n);
             }   //if
+        }   //else
         return n;
     }
 

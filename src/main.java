@@ -9,6 +9,7 @@ public class main {
         tree.insert_T(40);
         tree.insert_T(50);
         tree.insert_T(25);
+        tree.insert_T(20);
        /* tree.setRoot(tree.insert(tree.getRoot(), 10));
         tree.insert(tree.getRoot(), 20);
         tree.insert(tree.getRoot(), 30);

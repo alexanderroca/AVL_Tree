@@ -17,14 +17,14 @@ public class AVLTree {
     public int getBalance(Node n){
         if(n == null)
             return 0;
-        return Math.abs(height(n.getLeft()) - height(n.getRight()));
+        return (height(n.getLeft()) - height(n.getRight()));
     }
 
     // PreOrder
     public void preOrder(Node n){
         if(n == null)
             return;
-        System.out.println(n.getKey() + " ");
+        System.out.print(n.getKey() + " ");
         preOrder(n.getLeft());
         preOrder(n.getRight());
     }
@@ -34,7 +34,7 @@ public class AVLTree {
         if(n == null)
             return;
         inOrder(n.getLeft());
-        System.out.println(n.getKey() + " ");
+        System.out.print(n.getKey() + " ");
         inOrder(n.getRight());
     }
 
@@ -44,7 +44,7 @@ public class AVLTree {
             return;
         postOrder(n.getLeft());
         postOrder(n.getRight());
-        System.out.println(n.getKey() + " ");
+        System.out.print(n.getKey() + " ");
     }
 
     // LL ROTATION
@@ -75,45 +75,56 @@ public class AVLTree {
         return right;
     }
 
+    public boolean insert_T(int key){
+
+        try {
+            root = insert(root, key);
+            return true;
+        } catch (NodeAlreadyExists nodeAlreadyExists) {
+            nodeAlreadyExists.toString();
+            return false;
+        }
+    }
+
     // Insertion of a new Node to the AVL Tree
-    public Node insert(Node n, int key){
-        if(n == null)
-            return new Node(key, null); //TODO: Determine what type of object to keep
+    public Node insert(Node n, int key) throws NodeAlreadyExists{
 
-        // Insertion
-        if(key < n.getKey()) {
-            n.setLeft(insert(n.getLeft(), key));
-        }   //if
-        else if(key > n.getKey()){
-            n.setRight(insert(n.getRight(), key));
-        }   //else-if
-        else{
-            return n;
-        }   //else
+            if (n == null)
+                return (new Node(key, null)); //TODO: Determine what type of object to keep
 
-        // Update heights
-        n.setHeight(1 + max(height(n.getLeft()), height(n.getRight())));
+            // Insertion
+            if (key < n.getKey()) {
+                n.setLeft(insert(n.getLeft(), key));
+            }   //if
+            else if (key > n.getKey()) {
+                n.setRight(insert(n.getRight(), key));
+            }   //else-if
+            else {
+                return n;
+            }   //else
 
-        // Check if is balanced with the Balance Factor
-        int balance = getBalance(n);
-        // 4 possibles types of unbalanced
-        //RR
-        if(balance > 1 && key < n.getLeft().getKey())
-            return rightRotate(n);
-        //LL
-        if(balance > 1 && key > n.getRight().getKey())
-            return leftRotate(n);
-        //LR
-        if(balance > 1 && key > n.getLeft().getKey()){
-            n.setLeft(leftRotate(n.getLeft()));
-            return rightRotate(n);
-        }   //if
-        //RL
-        if(balance > 1 && key < n.getRight().getKey()){
-            n.setRight(rightRotate(n.getRight()));
-            return leftRotate(n);
-        }   //if
+            // Update heights
+            n.setHeight(1 + max(height(n.getLeft()), height(n.getRight())));
 
+            // Check if is balanced with the Balance Factor
+            int balance = getBalance(n);
+            // 4 possibles types of unbalanced
+            //RR
+            if (balance > 1 && key < n.getLeft().getKey())
+                return rightRotate(n);
+            //LL
+            if (balance < -1 && key > n.getRight().getKey())
+                return leftRotate(n);
+            //LR
+            if (balance > 1 && key > n.getLeft().getKey()) {
+                n.setLeft(leftRotate(n.getLeft()));
+                return rightRotate(n);
+            }   //if
+            //RL
+            if (balance < -1 && key < n.getRight().getKey()) {
+                n.setRight(rightRotate(n.getRight()));
+                return leftRotate(n);
+            }   //if
         return n;
     }
 

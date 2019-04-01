@@ -116,4 +116,12 @@ public class AVLTree {
 
         return n;
     }
+
+    public Node getRoot() {
+        return root;
+    }
+
+    public void setRoot(Node root) {
+        this.root = root;
+    }
 }

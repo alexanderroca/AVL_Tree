@@ -3,19 +3,13 @@ public class main {
         AVLTree tree = new AVLTree();
 
         /* Constructing tree given in the above figure */
-        tree.insert_T(10);
-        tree.insert_T(20);
-        tree.insert_T(30);
-        tree.insert_T(40);
-        tree.insert_T(50);
-        tree.insert_T(25);
-        tree.insert_T(20);
-       /* tree.setRoot(tree.insert(tree.getRoot(), 10));
-        tree.insert(tree.getRoot(), 20);
-        tree.insert(tree.getRoot(), 30);
-        tree.insert(tree.getRoot(), 40);
-        tree.insert(tree.getRoot(), 50);
-        tree.insert(tree.getRoot(), 25);*/
+        tree.insert_T(10, null);
+        tree.insert_T(20, null);
+        tree.insert_T(30, null);
+        tree.insert_T(40, null);
+        tree.insert_T(50, null);
+        tree.insert_T(25, null);
+        tree.insert_T(20, null);
 
         /* The constructed AVL Tree would be
              30

@@ -75,10 +75,10 @@ public class AVLTree {
         return right;
     }
 
-    public boolean insert_T(int key){
+    public boolean insert_T(int key, Object object){
 
         try {
-            root = insert(root, key);
+            root = insert(root, key, object);
             return true;
         } catch (NodeAlreadyExists nodeAlreadyExists) {
             System.out.println(nodeAlreadyExists.getMessage() + key);
@@ -87,10 +87,10 @@ public class AVLTree {
     }
 
     // Insertion of a new Node to the AVL Tree
-    public Node insert(Node n, int key) throws NodeAlreadyExists{
+    public Node insert(Node n, int key, Object object) throws NodeAlreadyExists{
 
         if (n == null)
-            return (new Node(key, null)); //TODO: Determine what type of object to keep
+            return (new Node(key, object)); //TODO: Determine what type of object to keep
 
         else {
             if (n.getKey() == key)
@@ -98,10 +98,10 @@ public class AVLTree {
 
             // Insertion
             if (key < n.getKey()) {
-                n.setLeft(insert(n.getLeft(), key));
+                n.setLeft(insert(n.getLeft(), key, object));
             }   //if
             else if (key > n.getKey()) {
-                n.setRight(insert(n.getRight(), key));
+                n.setRight(insert(n.getRight(), key, object));
             }   //else-if
             else {
                 return n;

@@ -133,6 +133,83 @@ public class AVLTree {
         return n;
     }
 
+    public boolean remove_T(int key){
+        try{
+            root = remove(root, key);
+            return true;
+        } catch (NodeDoesntExists nodeDoesntExists){
+            System.out.println(nodeDoesntExists.getMessage() + key);
+            return false;
+        }
+    }
+
+    public Node remove(Node n, int key) throws NodeDoesntExists{
+
+        if(n == null)
+            return n;
+
+        if(key < n.getKey())
+            n.setLeft(remove(n.getLeft(), key));
+        else if(key > n.getKey())
+            n.setRight(remove(n.getRight(), key));
+        else{
+
+            if(n.getLeft() == null || n.getRight() == null){
+
+                Node aux = null;
+                if(aux == n.getLeft())
+                    aux = n.getRight();
+                else
+                    aux = n.getLeft();
+
+                if(aux == null){
+                    aux = n;
+                    n = null;
+                }   //if
+                else
+                    n = aux;
+            }   //if
+            else{
+                Node aux = minValueNode(n.getRight());
+                n.setKey(aux.getKey());
+                n.setRight(remove(n.getRight(), aux.getKey()));
+            }   //else
+        }   //else
+
+        if(n == null)
+            return n;
+
+        n.setHeight(max(height(n.getLeft()), height(n.getRight())) + 1);
+
+        int balance = getBalance(n);
+        if(balance > 1 && getBalance(n.getLeft()) >= 0)
+            return rightRotate(n);
+        if(balance > 1 && getBalance(n.getLeft()) < 0){
+            n.setLeft(leftRotate(n.getLeft()));
+            return rightRotate(n);
+        }   //if
+
+        if(balance < -1 && getBalance(n.getRight()) <= 0)
+            return leftRotate(n);
+        if(balance < -1 && getBalance(n.getRight()) > 0) {
+            n.setRight(rightRotate(n.getRight()));
+            return leftRotate(n);
+        }   //if
+
+        return n;
+    }
+
+    //Search the minimum key value in the tree
+    public Node minValueNode(Node n){
+        Node aux = n;
+
+        //Loop to find the most left leaf
+        while(aux.getLeft() != null)
+            aux = aux.getLeft();
+
+        return aux;
+    }
+
     public Node getRoot() {
         return root;
     }

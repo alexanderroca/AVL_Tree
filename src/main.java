@@ -26,5 +26,11 @@ public class main {
         System.out.println();
         System.out.print("PostOrder: ");
         tree.postOrder(tree.getRoot());
+        System.out.println();
+
+        tree.remove_T(10);
+        System.out.print("InOrder: ");
+        tree.inOrder(tree.getRoot());
+        System.out.println("HI");
     }
 }

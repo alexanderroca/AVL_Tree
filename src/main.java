@@ -29,6 +29,7 @@ public class main {
         System.out.println();
 
         tree.remove_T(10);
+        tree.remove_T(10);
         System.out.print("InOrder: ");
         tree.inOrder(tree.getRoot());
         System.out.println("HI");

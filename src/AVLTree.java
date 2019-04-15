@@ -146,7 +146,7 @@ public class AVLTree {
     public Node remove(Node n, int key) throws NodeDoesntExists{
 
         if(n == null)
-            return n;
+            throw new NodeDoesntExists();
 
         if(key < n.getKey())
             n.setLeft(remove(n.getLeft(), key));
